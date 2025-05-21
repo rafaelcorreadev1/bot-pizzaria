@@ -22,7 +22,7 @@ Este é um projeto full stack monolítico para um atendente virtual de pizzaria 
 - [Node.js 18+](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-- (Opcional) [pnpm](https://pnpm.io/) para gerenciamento de pacotes
+- (Opcional) [npm](https://npm.io/) para gerenciamento de pacotes
 
 ---
 
@@ -58,10 +58,10 @@ Acesse:
 
 ```bash
 cd backend
-pnpm install
+npm install
 npx prisma generate
 npx prisma migrate dev --name init
-pnpm dev
+npm run dev
 ```
 
 ---
@@ -70,8 +70,8 @@ pnpm dev
 
 ```bash
 cd frontend
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 ---
@@ -96,24 +96,8 @@ Para executar os testes:
 
 ```bash
 cd backend
-pnpm test
+npx vitest run
 ```
-
----
-
-## 📦 Build de Produção
-
-```bash
-# Backend
-cd backend
-pnpm build
-
-# Frontend
-cd frontend
-pnpm build
-```
-
-Ou use Docker para builds automáticos.
 
 ---
 
