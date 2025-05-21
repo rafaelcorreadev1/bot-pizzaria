@@ -3,8 +3,7 @@ import { io } from 'socket.io-client';
 import { api } from '../services/api';
 import type { Message } from '../types/Message';
 
-
-const socket = io('http://localhost:3001');
+const socket = io(`http://${window.location.hostname}:3001`);
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -44,7 +43,7 @@ export function Chat() {
     }
   };
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (!input.trim()) return;
 
     const userMessage: Message = {
@@ -52,26 +51,15 @@ export function Chat() {
       content: input,
     };
 
-    setMessages(prev => [...prev, userMessage]);
-
-    // Mensagem "digitando..."
-    setMessages(prev => [
-      ...prev,
-      {
-        role: 'assistant',
-        content: 'Digitando...',
-      },
-    ]);
+    setMessages(prev => [...prev, userMessage, {
+      role: 'assistant',
+      content: 'Digitando...'
+    }]);
 
     setInput('');
     setLoading(true);
 
-    try {
-      await api.post('/messages', { content: userMessage.content });
-    } catch (err) {
-      console.error('Erro ao enviar mensagem:', err);
-      setLoading(false);
-    }
+    socket.emit('nova-mensagem', userMessage.content);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
