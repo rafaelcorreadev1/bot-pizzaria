@@ -13,7 +13,7 @@ export class MessageService {
 
     // Processa com DeepSeek
     const botReply = await responderComDeepseek([
-      ...(await this.getHistoryAsChat()),
+      ...((await this.getHistoryAsChat()).slice(-5)),
       { role: 'user', content: message },
     ]);
 

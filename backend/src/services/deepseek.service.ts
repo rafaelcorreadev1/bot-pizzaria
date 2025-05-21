@@ -9,6 +9,7 @@ const deepseek = axios.create({
   },
 });
 
+console.log('caa', process.env.DEEPSEEK_API_KEY)
 const systemPrompt = `
 Você é um atendente de pizzaria com as seguintes regras:
 
@@ -51,6 +52,8 @@ Use linguagem natural, simpática, persuasiva, curta e de preferência de forma 
 
 export async function responderComDeepseek(history: { role: 'system' | 'user' | 'assistant'; content: string }[]) {
   try {
+
+     console.time('deepseek');
     const response = await deepseek.post('/chat/completions', {
       model: 'deepseek-chat',
       messages: [
@@ -59,6 +62,7 @@ export async function responderComDeepseek(history: { role: 'system' | 'user' | 
       ],
       temperature: 0.7,
     });
+     console.timeEnd('deepseek')
 
     return response.data.choices[0].message.content;
   } catch (error: any) {
