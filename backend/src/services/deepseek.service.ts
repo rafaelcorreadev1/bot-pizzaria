@@ -51,6 +51,7 @@ Use linguagem natural, simpática, persuasiva, curta e de preferência de forma 
 `;
 
 export async function responderComDeepseek(history: { role: 'system' | 'user' | 'assistant'; content: string }[]) {
+  
   try {
 
      console.time('deepseek');
